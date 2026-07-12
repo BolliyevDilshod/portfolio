@@ -164,6 +164,35 @@
   .btn-ghost{ color: var(--text); }
   .btn-ghost:hover{ border-color: var(--accent); }
 
+  .hero-top{
+    display:flex;
+    align-items:center;
+    justify-content: space-between;
+    gap: 40px;
+    margin-bottom: 46px;
+  }
+  .hero-text{ flex: 1 1 380px; min-width: 0; }
+  .hero-text .hero-actions{ margin-bottom: 0; }
+  .hero-photo{
+    flex-shrink: 0;
+    width: 168px;
+    height: 168px;
+    border-radius: 16px;
+    overflow: hidden;
+    border: 1px solid var(--border);
+    box-shadow: 0 24px 48px -24px rgba(0,0,0,0.6), 0 0 0 4px rgba(79,209,197,0.08);
+  }
+  .hero-photo img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+  @media (max-width: 640px){
+    .hero-top{ flex-direction: column-reverse; align-items: flex-start; gap: 24px; }
+    .hero-photo{ width: 120px; height: 120px; }
+  }
+
   /* -------- terminal -------- */
   .terminal{
     background: var(--surface);
@@ -421,12 +450,19 @@
 </div>
 
 <header class="hero container">
-  <h1>Bolliyev Dilshod<br><span class="accent" data-i18n="hero.role">Python Backend Developer</span></h1>
-  <p class="lede" data-i18n="hero.lede">10 years building APIs that stay up. Django, DRF, FastAPI, WebSocket, Celery — based in Tashkent, working with teams anywhere.</p>
-  <div class="hero-actions">
-    <a class="btn btn-primary" href="#projects" data-i18n="hero.btnProjects">View projects</a>
-    <a class="btn btn-ghost" href="#contact" data-i18n="hero.btnContact">Get in touch</a>
-    <a class="btn btn-ghost" href="https://github.com/BolliyevDilshod" target="_blank" rel="noopener">GitHub ↗</a>
+  <div class="hero-top">
+    <div class="hero-text">
+      <h1>Bolliyev Dilshod<br><span class="accent" data-i18n="hero.role">Python Backend Developer</span></h1>
+      <p class="lede" data-i18n="hero.lede">7 years building APIs that stay up. Django, DRF, FastAPI, WebSocket, Celery — based in Tashkent, working with teams anywhere.</p>
+      <div class="hero-actions">
+        <a class="btn btn-primary" href="#projects" data-i18n="hero.btnProjects">View projects</a>
+        <a class="btn btn-ghost" href="#contact" data-i18n="hero.btnContact">Get in touch</a>
+        <a class="btn btn-ghost" href="https://github.com/BolliyevDilshod" target="_blank" rel="noopener">GitHub ↗</a>
+      </div>
+    </div>
+    <div class="hero-photo">
+      <img src="assets/profile.jpg" alt="Dilshod Bolliyev" width="640" height="640" loading="eager">
+    </div>
   </div>
 
   <div class="terminal">
@@ -443,7 +479,7 @@
     <span class="path">/about</span>
     <h2 data-i18n="about.h2">Who's handling the request</h2>
     <p class="about-text" data-i18n="about.text">
-      I'm a backend-focused Python developer with <strong>~10 years of experience</strong>, based in Tashkent, Uzbekistan.
+      I'm a backend-focused Python developer with <strong>~7 years of experience</strong>, based in Tashkent, Uzbekistan.
       Most of my work lives in <strong>Django / DRF</strong> and <strong>FastAPI</strong> — auth, background jobs, real-time
       features over WebSocket, and integrations that actually get used, like Telegram bots wired into CRMs and payment flows.
       Lately I've been building two things end-to-end on my own: a multi-tenant retail platform with face recognition,
@@ -630,7 +666,7 @@
       </div>
       <div class="t-item">
         <div class="t-meta" data-i18n="exp.background">background</div>
-        <h4 data-i18n="exp.item3.title">~10 years in Python backend development</h4>
+        <h4 data-i18n="exp.item3.title">~7 years in Python backend development</h4>
         <p data-i18n="exp.item3.desc">Django, DRF and FastAPI services with a recurring focus on real-time features and Telegram-based
            notification systems.</p>
       </div>
@@ -751,11 +787,11 @@
   const i18n = {
     en: {
       'hero.role': 'Python Backend Developer',
-      'hero.lede': '10 years building APIs that stay up. Django, DRF, FastAPI, WebSocket, Celery — based in Tashkent, working with teams anywhere.',
+      'hero.lede': '7 years building APIs that stay up. Django, DRF, FastAPI, WebSocket, Celery — based in Tashkent, working with teams anywhere.',
       'hero.btnProjects': 'View projects',
       'hero.btnContact': 'Get in touch',
       'about.h2': "Who's handling the request",
-      'about.text': "I'm a backend-focused Python developer with <strong>~10 years of experience</strong>, based in Tashkent, Uzbekistan. Most of my work lives in <strong>Django / DRF</strong> and <strong>FastAPI</strong> — auth, background jobs, real-time features over WebSocket, and integrations that actually get used, like Telegram bots wired into CRMs and payment flows. Lately I've been building two things end-to-end on my own: a multi-tenant retail platform with face recognition, and a telemedicine API — both from schema to deployment.",
+      'about.text': "I'm a backend-focused Python developer with <strong>~7 years of experience</strong>, based in Tashkent, Uzbekistan. Most of my work lives in <strong>Django / DRF</strong> and <strong>FastAPI</strong> — auth, background jobs, real-time features over WebSocket, and integrations that actually get used, like Telegram bots wired into CRMs and payment flows. Lately I've been building two things end-to-end on my own: a multi-tenant retail platform with face recognition, and a telemedicine API — both from schema to deployment.",
       'stack.h2': 'Response headers',
       'stack.core': 'Core',
       'stack.data': 'Data &amp; queues',
@@ -782,7 +818,7 @@
       'exp.item1.desc': 'Designed and built both platforms solo, from data models to deployment prep, while job searching.',
       'exp.item2.title': 'CRM &amp; Telegram integrations (m_crm / ombor_pro)',
       'exp.item2.desc': 'Multi-role dashboards, payment-confirmation notifications, debt calculation logic, and admin-only logging channels for internal retail/distribution tools.',
-      'exp.item3.title': '~10 years in Python backend development',
+      'exp.item3.title': '~7 years in Python backend development',
       'exp.item3.desc': 'Django, DRF and FastAPI services with a recurring focus on real-time features and Telegram-based notification systems.',
       'contact.h2': 'Send a request',
       'contact.namePlaceholder': 'Your name',
@@ -794,11 +830,11 @@
     },
     uz: {
       'hero.role': 'Python Backend Dasturchi',
-      'hero.lede': "10 yillik tajriba — ishlab turadigan API'lar yarataman. Django, DRF, FastAPI, WebSocket, Celery — Toshkentda yashayman, jamoalar bilan dunyoning istalgan joyida ishlayman.",
+      'hero.lede': "7 yillik tajriba — ishlab turadigan API'lar yarataman. Django, DRF, FastAPI, WebSocket, Celery — Toshkentda yashayman, jamoalar bilan dunyoning istalgan joyida ishlayman.",
       'hero.btnProjects': "Loyihalarni ko'rish",
       'hero.btnContact': "Bog'lanish",
       'about.h2': "So'rovni kim qabul qilyapti",
-      'about.text': "Men ~10 yillik tajribaga ega <strong>backend'ga ixtisoslashgan Python dasturchi</strong>man, Toshkent, O'zbekistonda joylashganman. Ishlarimning aksariyati <strong>Django / DRF</strong> va <strong>FastAPI</strong>da — autentifikatsiya, fon vazifalari, WebSocket orqali real vaqt funksiyalari va CRM hamda to'lov tizimlariga ulangan Telegram botlar kabi haqiqatan ham foydalaniladigan integratsiyalar. Hozirda ikkita loyihani yakka o'zim boshdan-oyoq qurayapman: yuz tanish funksiyali multi-tenant chakana savdo platformasi va telemeditsina API'si — sxemadan tortib deploygacha.",
+      'about.text': "Men ~7 yillik tajribaga ega <strong>backend'ga ixtisoslashgan Python dasturchi</strong>man, Toshkent, O'zbekistonda joylashganman. Ishlarimning aksariyati <strong>Django / DRF</strong> va <strong>FastAPI</strong>da — autentifikatsiya, fon vazifalari, WebSocket orqali real vaqt funksiyalari va CRM hamda to'lov tizimlariga ulangan Telegram botlar kabi haqiqatan ham foydalaniladigan integratsiyalar. Hozirda ikkita loyihani yakka o'zim boshdan-oyoq qurayapman: yuz tanish funksiyali multi-tenant chakana savdo platformasi va telemeditsina API'si — sxemadan tortib deploygacha.",
       'stack.h2': 'Javob sarlavhalari',
       'stack.core': 'Asosiy',
       'stack.data': "Ma'lumotlar va navbatlar",
@@ -825,7 +861,7 @@
       'exp.item1.desc': "Ish qidirish bilan bir vaqtda, ma'lumotlar modelidan tortib deploy tayyorgarligigacha ikkala platformani yakka o'zim loyihalashtirdim va qurdim.",
       'exp.item2.title': 'CRM va Telegram integratsiyalari (m_crm / ombor_pro)',
       'exp.item2.desc': "Ichki chakana savdo/distribyutsiya vositalari uchun ko'p rolli boshqaruv panellari, to'lov tasdiqlash xabarnomalari, qarz hisoblash mantiqi va faqat admin uchun log kanallari.",
-      'exp.item3.title': "Python backend'da ~10 yillik tajriba",
+      'exp.item3.title': "Python backend'da ~7 yillik tajriba",
       'exp.item3.desc': "Real vaqt funksiyalari va Telegram asosidagi xabarnoma tizimlariga doimiy e'tibor bilan Django, DRF va FastAPI xizmatlari.",
       'contact.h2': "So'rov yuborish",
       'contact.namePlaceholder': 'Ismingiz',
@@ -837,11 +873,11 @@
     },
     ru: {
       'hero.role': 'Python Backend-разработчик',
-      'hero.lede': 'Более 10 лет опыта — создаю API, которые не падают. Django, DRF, FastAPI, WebSocket, Celery — живу в Ташкенте, работаю с командами по всему миру.',
+      'hero.lede': 'Более 7 лет опыта — создаю API, которые не падают. Django, DRF, FastAPI, WebSocket, Celery — живу в Ташкенте, работаю с командами по всему миру.',
       'hero.btnProjects': 'Смотреть проекты',
       'hero.btnContact': 'Связаться',
       'about.h2': 'Кто обрабатывает запрос',
-      'about.text': 'Я <strong>Python-разработчик с фокусом на backend</strong>, около <strong>10 лет опыта</strong>, живу в Ташкенте, Узбекистан. Большая часть моей работы — <strong>Django / DRF</strong> и <strong>FastAPI</strong>: аутентификация, фоновые задачи, real-time функции через WebSocket и интеграции, которыми реально пользуются — например, Telegram-боты, подключённые к CRM и платёжным потокам. Сейчас в одиночку строю два проекта от начала до конца: мультитенантную розничную платформу с распознаванием лиц и телемедицинский API — от схемы данных до деплоя.',
+      'about.text': 'Я <strong>Python-разработчик с фокусом на backend</strong>, около <strong>7 лет опыта</strong>, живу в Ташкенте, Узбекистан. Большая часть моей работы — <strong>Django / DRF</strong> и <strong>FastAPI</strong>: аутентификация, фоновые задачи, real-time функции через WebSocket и интеграции, которыми реально пользуются — например, Telegram-боты, подключённые к CRM и платёжным потокам. Сейчас в одиночку строю два проекта от начала до конца: мультитенантную розничную платформу с распознаванием лиц и телемедицинский API — от схемы данных до деплоя.',
       'stack.h2': 'Заголовки ответа',
       'stack.core': 'Основное',
       'stack.data': 'Данные и очереди',
@@ -868,7 +904,7 @@
       'exp.item1.desc': 'Спроектировал и построил обе платформы самостоятельно, от моделей данных до подготовки к деплою, параллельно с поиском работы.',
       'exp.item2.title': 'CRM и Telegram-интеграции (m_crm / ombor_pro)',
       'exp.item2.desc': 'Многоролевые панели, уведомления о подтверждении оплаты, логика расчёта долга и закрытые каналы логирования только для админов — для внутренних инструментов розницы и дистрибуции.',
-      'exp.item3.title': '~10 лет в Python backend-разработке',
+      'exp.item3.title': '~7 лет в Python backend-разработке',
       'exp.item3.desc': 'Сервисы на Django, DRF и FastAPI с постоянным фокусом на real-time функции и системы уведомлений на базе Telegram.',
       'contact.h2': 'Отправить запрос',
       'contact.namePlaceholder': 'Ваше имя',
