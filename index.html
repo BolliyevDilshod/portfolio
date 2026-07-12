@@ -1,0 +1,660 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dilshod Bolliyev — Python Backend Developer</title>
+<meta name="description" content="Dilshod Bolliyev — Python backend developer from Tashkent. Django, DRF, FastAPI, WebSocket, Celery, Docker.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg: #0B1220;
+    --surface: #101A2E;
+    --surface-2: #16223A;
+    --border: #223151;
+    --text: #E7ECF5;
+    --muted: #8B96AC;
+    --accent: #4FD1C5;
+    --accent-dim: #2E7D74;
+    --accent-warm: #F2A65A;
+    --radius: 10px;
+    --mono: 'JetBrains Mono', monospace;
+    --display: 'Space Grotesk', sans-serif;
+    --body: 'Inter', sans-serif;
+  }
+
+  *{ box-sizing: border-box; }
+  html{ scroll-behavior: smooth; }
+  body{
+    margin:0;
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--body);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+  a{ color: inherit; }
+  .container{
+    max-width: 920px;
+    margin: 0 auto;
+    padding: 0 24px;
+  }
+
+  /* -------- topbar -------- */
+  .topbar{
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    background: rgba(11,18,32,0.85);
+    backdrop-filter: blur(8px);
+    border-bottom: 1px solid var(--border);
+  }
+  .topbar-inner{
+    display:flex;
+    align-items:center;
+    justify-content: space-between;
+    padding: 16px 24px;
+    max-width: 920px;
+    margin: 0 auto;
+  }
+  .logo{
+    font-family: var(--mono);
+    font-size: 14px;
+    color: var(--accent);
+    letter-spacing: 0.02em;
+  }
+  .logo span{ color: var(--muted); }
+  nav{ display:flex; gap: 22px; }
+  nav a{
+    font-family: var(--mono);
+    font-size: 13px;
+    color: var(--muted);
+    text-decoration: none;
+    transition: color .15s ease;
+  }
+  nav a:hover, nav a:focus-visible{ color: var(--accent); outline: none; }
+  .nav-toggle{ display:none; background:none; border:none; color:var(--text); font-size:20px; cursor:pointer; }
+
+  @media (max-width: 640px){
+    nav{
+      position:absolute;
+      top:100%; left:0; right:0;
+      background: var(--surface);
+      border-bottom: 1px solid var(--border);
+      flex-direction: column;
+      padding: 16px 24px;
+      gap: 14px;
+      display:none;
+    }
+    nav.open{ display:flex; }
+    .nav-toggle{ display:block; }
+  }
+
+  /* -------- hero -------- */
+  .hero{
+    padding: 90px 0 60px;
+  }
+  .eyebrow{
+    font-family: var(--mono);
+    font-size: 13px;
+    color: var(--accent);
+    display:flex;
+    align-items:center;
+    gap: 8px;
+    margin-bottom: 18px;
+  }
+  .dot{
+    width:7px; height:7px; border-radius:50%;
+    background: var(--accent);
+    box-shadow: 0 0 0 3px rgba(79,209,197,0.15);
+  }
+  h1{
+    font-family: var(--display);
+    font-weight: 700;
+    font-size: clamp(34px, 6vw, 54px);
+    line-height: 1.1;
+    margin: 0 0 14px;
+    letter-spacing: -0.01em;
+  }
+  h1 .accent{ color: var(--accent); }
+  .lede{
+    color: var(--muted);
+    font-size: 17px;
+    max-width: 540px;
+    margin: 0 0 28px;
+  }
+  .hero-actions{ display:flex; gap: 12px; flex-wrap: wrap; margin-bottom: 46px; }
+  .btn{
+    font-family: var(--mono);
+    font-size: 13px;
+    padding: 11px 18px;
+    border-radius: var(--radius);
+    text-decoration: none;
+    border: 1px solid var(--border);
+    transition: border-color .15s ease, background .15s ease;
+  }
+  .btn-primary{
+    background: var(--accent);
+    color: #06201D;
+    border-color: var(--accent);
+    font-weight: 600;
+  }
+  .btn-primary:hover{ background: #6ee0d4; }
+  .btn-ghost{ color: var(--text); }
+  .btn-ghost:hover{ border-color: var(--accent); }
+
+  /* -------- terminal -------- */
+  .terminal{
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 30px 60px -30px rgba(0,0,0,0.6);
+  }
+  .terminal-head{
+    display:flex;
+    align-items:center;
+    gap: 8px;
+    padding: 12px 16px;
+    background: var(--surface-2);
+    border-bottom: 1px solid var(--border);
+  }
+  .terminal-head .dot{ width:10px; height:10px; box-shadow:none; }
+  .td1{ background:#F2A65A; } .td2{ background:#4FD1C5; } .td3{ background:#7C9EFF; }
+  .terminal-title{
+    margin-left: 8px;
+    font-family: var(--mono);
+    font-size: 12px;
+    color: var(--muted);
+  }
+  .terminal-body{
+    font-family: var(--mono);
+    font-size: 13px;
+    padding: 20px;
+    min-height: 190px;
+    white-space: pre-wrap;
+    color: #C7D0E0;
+  }
+  .terminal-body .req{ color: var(--accent-warm); }
+  .terminal-body .status{ color: var(--accent); }
+  .terminal-body .key{ color: #9FB3D9; }
+  .terminal-body .str{ color: #B9E6E0; }
+  .cursor{
+    display:inline-block;
+    width: 8px; height: 15px;
+    background: var(--accent);
+    vertical-align: text-bottom;
+    animation: blink 1s steps(2) infinite;
+  }
+  @keyframes blink{ 50%{ opacity: 0; } }
+
+  /* -------- sections -------- */
+  section{ padding: 64px 0; border-top: 1px solid var(--border); }
+  .path{
+    font-family: var(--mono);
+    font-size: 13px;
+    color: var(--accent);
+    margin-bottom: 8px;
+    display:block;
+  }
+  h2{
+    font-family: var(--display);
+    font-size: 26px;
+    font-weight: 600;
+    margin: 0 0 24px;
+  }
+
+  .about-text{ color: var(--muted); max-width: 640px; }
+  .about-text strong{ color: var(--text); font-weight: 600; }
+
+  /* stack */
+  .stack-group{ margin-bottom: 22px; }
+  .stack-group h3{
+    font-family: var(--mono);
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--muted);
+    margin: 0 0 10px;
+    font-weight: 500;
+  }
+  .tags{ display:flex; flex-wrap: wrap; gap: 8px; }
+  .tag{
+    font-family: var(--mono);
+    font-size: 12.5px;
+    padding: 6px 10px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    color: #C7D0E0;
+  }
+
+  /* projects */
+  .project{
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 22px 24px;
+    margin-bottom: 16px;
+    transition: border-color .15s ease, transform .15s ease;
+  }
+  .project:hover{ border-color: var(--accent-dim); }
+  .project-head{
+    display:flex;
+    align-items:baseline;
+    gap: 10px;
+    font-family: var(--mono);
+    font-size: 13px;
+    margin-bottom: 10px;
+    flex-wrap: wrap;
+  }
+  .method{
+    font-weight: 700;
+    padding: 2px 7px;
+    border-radius: 4px;
+    font-size: 11.5px;
+  }
+  .method-get{ color: #06201D; background: var(--accent); }
+  .method-post{ color: #2A1B03; background: var(--accent-warm); }
+  .project-path{ color: var(--text); }
+  .status-badge{
+    margin-left: auto;
+    font-size: 11px;
+    color: var(--muted);
+  }
+  .project h3{
+    font-family: var(--display);
+    font-size: 19px;
+    margin: 0 0 8px;
+    font-weight: 600;
+  }
+  .project p{ color: var(--muted); margin: 0 0 14px; font-size: 14.5px; }
+  .project .tags{ margin-bottom: 14px; }
+  .project-links{ display:flex; gap: 16px; }
+  .project-links a{
+    font-family: var(--mono);
+    font-size: 12.5px;
+    color: var(--accent);
+    text-decoration: none;
+    border-bottom: 1px solid transparent;
+  }
+  .project-links a:hover{ border-bottom-color: var(--accent); }
+
+  /* experience */
+  .timeline{ position: relative; padding-left: 26px; }
+  .timeline::before{
+    content:'';
+    position:absolute; left: 5px; top: 6px; bottom: 6px;
+    width: 1px; background: var(--border);
+  }
+  .t-item{ position: relative; margin-bottom: 26px; }
+  .t-item:last-child{ margin-bottom: 0; }
+  .t-item::before{
+    content:'';
+    position:absolute; left: -26px; top: 5px;
+    width: 9px; height: 9px; border-radius: 50%;
+    background: var(--accent);
+    box-shadow: 0 0 0 3px rgba(79,209,197,0.15);
+  }
+  .t-item .t-meta{
+    font-family: var(--mono);
+    font-size: 12px;
+    color: var(--muted);
+    margin-bottom: 4px;
+  }
+  .t-item h4{ margin: 0 0 6px; font-family: var(--display); font-size: 16.5px; font-weight: 600; }
+  .t-item p{ margin: 0; color: var(--muted); font-size: 14.5px; }
+
+  /* contact */
+  .contact-wrap{ display:flex; gap: 32px; flex-wrap: wrap; }
+  .contact-form{ flex: 1 1 340px; }
+  .field{ margin-bottom: 16px; }
+  .field label{
+    display:block;
+    font-family: var(--mono);
+    font-size: 12px;
+    color: var(--muted);
+    margin-bottom: 6px;
+  }
+  .field input, .field textarea{
+    width: 100%;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 11px 12px;
+    color: var(--text);
+    font-family: var(--mono);
+    font-size: 13.5px;
+    resize: vertical;
+  }
+  .field input:focus, .field textarea:focus{
+    outline: none;
+    border-color: var(--accent);
+  }
+  .field textarea{ min-height: 100px; }
+  .send-note{
+    font-family: var(--mono);
+    font-size: 12px;
+    color: var(--muted);
+    margin-top: 6px;
+  }
+  .contact-direct{ flex: 1 1 260px; }
+  .contact-direct .path{ margin-bottom: 16px; }
+  .direct-list{ list-style:none; margin:0; padding:0; }
+  .direct-list li{
+    font-family: var(--mono);
+    font-size: 13.5px;
+    padding: 12px 0;
+    border-bottom: 1px solid var(--border);
+    display:flex;
+    justify-content: space-between;
+  }
+  .direct-list li:last-child{ border-bottom: none; }
+  .direct-list a{ color: var(--accent); text-decoration:none; }
+  .direct-list a:hover{ text-decoration: underline; }
+
+  footer{
+    border-top: 1px solid var(--border);
+    padding: 30px 0 50px;
+    text-align: center;
+  }
+  footer p{
+    font-family: var(--mono);
+    font-size: 12.5px;
+    color: var(--muted);
+    margin: 0;
+  }
+
+  [data-reveal]{
+    opacity: 0;
+    transform: translateY(14px);
+    transition: opacity .5s ease, transform .5s ease;
+  }
+  [data-reveal].in{ opacity: 1; transform: translateY(0); }
+
+  @media (prefers-reduced-motion: reduce){
+    *{ animation: none !important; transition: none !important; }
+    [data-reveal]{ opacity: 1; transform: none; }
+  }
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="topbar-inner">
+    <div class="logo">dilshod<span>.dev</span></div>
+    <button class="nav-toggle" id="navToggle" aria-label="Toggle menu">☰</button>
+    <nav id="mainNav">
+      <a href="#about">/about</a>
+      <a href="#stack">/stack</a>
+      <a href="#projects">/projects</a>
+      <a href="#experience">/experience</a>
+      <a href="#contact">/contact</a>
+    </nav>
+  </div>
+</div>
+
+<header class="hero container">
+  <div class="eyebrow"><span class="dot"></span>200 OK · open to new roles</div>
+  <h1>Bolliyev Dilshod<br><span class="accent">Python Backend Developer</span></h1>
+  <p class="lede">10 years building APIs that stay up. Django, DRF, FastAPI, WebSocket, Celery — based in Tashkent, working with teams anywhere.</p>
+  <div class="hero-actions">
+    <a class="btn btn-primary" href="#projects">View projects</a>
+    <a class="btn btn-ghost" href="#contact">Get in touch</a>
+    <a class="btn btn-ghost" href="https://github.com/BolliyevDilshod" target="_blank" rel="noopener">GitHub ↗</a>
+  </div>
+
+  <div class="terminal">
+    <div class="terminal-head">
+      <span class="dot td1"></span><span class="dot td2"></span><span class="dot td3"></span>
+      <span class="terminal-title">bash — api.dilshod.dev</span>
+    </div>
+    <div class="terminal-body" id="termBody"></div>
+  </div>
+</header>
+
+<section id="about">
+  <div class="container">
+    <span class="path">/about</span>
+    <h2>Who's handling the request</h2>
+    <p class="about-text">
+      I'm a backend-focused Python developer with <strong>~10 years of experience</strong>, based in Tashkent, Uzbekistan.
+      Most of my work lives in <strong>Django / DRF</strong> and <strong>FastAPI</strong> — auth, background jobs, real-time
+      features over WebSocket, and integrations that actually get used, like Telegram bots wired into CRMs and payment flows.
+      Lately I've been building two things end-to-end on my own: a multi-tenant retail platform with face recognition,
+      and a telemedicine API — both from schema to deployment.
+    </p>
+  </div>
+</section>
+
+<section id="stack">
+  <div class="container">
+    <span class="path">/stack</span>
+    <h2>Response headers</h2>
+
+    <div class="stack-group">
+      <h3>Core</h3>
+      <div class="tags">
+        <span class="tag">Python</span><span class="tag">Django</span><span class="tag">DRF</span>
+        <span class="tag">FastAPI</span><span class="tag">WebSocket</span><span class="tag">JWT</span>
+      </div>
+    </div>
+    <div class="stack-group">
+      <h3>Data &amp; queues</h3>
+      <div class="tags">
+        <span class="tag">PostgreSQL</span><span class="tag">Redis</span><span class="tag">Celery</span>
+        <span class="tag">pandas</span><span class="tag">numpy</span>
+      </div>
+    </div>
+    <div class="stack-group">
+      <h3>Infra &amp; tooling</h3>
+      <div class="tags">
+        <span class="tag">Docker</span><span class="tag">Git</span><span class="tag">Nginx</span>
+        <span class="tag">Jazzmin</span><span class="tag">python-decouple</span>
+      </div>
+    </div>
+    <div class="stack-group">
+      <h3>Integrations</h3>
+      <div class="tags">
+        <span class="tag">Telegram Bot API</span><span class="tag">face_recognition / dlib</span>
+        <span class="tag">OpenCV</span><span class="tag">QR codes</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="projects">
+  <div class="container">
+    <span class="path">/projects</span>
+    <h2>Endpoints worth calling</h2>
+
+    <div class="project" data-reveal>
+      <div class="project-head">
+        <span class="method method-get">GET</span>
+        <span class="project-path">/projects/ai-market</span>
+        <span class="status-badge">status: in progress</span>
+      </div>
+      <h3>AI Market</h3>
+      <p>Multi-tenant retail platform with face-recognition-based customer check-in, an RFM-style weighted
+         discount engine, QR code generation, and a Telegram bot that handles self-registration end to end.</p>
+      <div class="tags">
+        <span class="tag">Django</span><span class="tag">dlib</span><span class="tag">OpenCV</span>
+        <span class="tag">pandas</span><span class="tag">python-telegram-bot</span>
+      </div>
+      <div class="project-links">
+        <a href="https://github.com/BolliyevDilshod" target="_blank" rel="noopener">Source ↗</a>
+      </div>
+    </div>
+
+    <div class="project" data-reveal>
+      <div class="project-head">
+        <span class="method method-get">GET</span>
+        <span class="project-path">/projects/mydocai</span>
+        <span class="status-badge">status: in progress</span>
+      </div>
+      <h3>MyDocAI</h3>
+      <p>Telemedicine REST API built from scratch across 12 Django apps — patients, doctors, pharmacy,
+         consultations, prescriptions, payments, chat, and analytics — with split settings and a Jazzmin admin.</p>
+      <div class="tags">
+        <span class="tag">Django REST Framework</span><span class="tag">JWT</span><span class="tag">PostgreSQL</span>
+      </div>
+      <div class="project-links">
+        <a href="https://github.com/BolliyevDilshod/mydocai" target="_blank" rel="noopener">Source ↗</a>
+      </div>
+    </div>
+
+    <div class="project" data-reveal>
+      <div class="project-head">
+        <span class="method method-post">POST</span>
+        <span class="project-path">/projects/internet-speed-checker</span>
+        <span class="status-badge">status: shipped</span>
+      </div>
+      <h3>Internet Speed Checker</h3>
+      <p>A compact Python tool that measures connection speed — built as a technical test task and shipped
+         end to end, including first-time setup of Git authentication via personal access tokens.</p>
+      <div class="tags"><span class="tag">Python</span></div>
+      <div class="project-links">
+        <a href="https://github.com/BolliyevDilshod/internet_speed" target="_blank" rel="noopener">Source ↗</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="experience">
+  <div class="container">
+    <span class="path">/experience</span>
+    <h2>Request history</h2>
+    <div class="timeline">
+      <div class="t-item">
+        <div class="t-meta">recent</div>
+        <h4>Independent projects — AI Market &amp; MyDocAI</h4>
+        <p>Designed and built both platforms solo, from data models to deployment prep, while job searching.</p>
+      </div>
+      <div class="t-item">
+        <div class="t-meta">earlier</div>
+        <h4>CRM &amp; Telegram integrations (m_crm / ombor_pro)</h4>
+        <p>Multi-role dashboards, payment-confirmation notifications, debt calculation logic, and admin-only
+           logging channels for internal retail/distribution tools.</p>
+      </div>
+      <div class="t-item">
+        <div class="t-meta">background</div>
+        <h4>~10 years in Python backend development</h4>
+        <p>Django, DRF and FastAPI services with a recurring focus on real-time features and Telegram-based
+           notification systems.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="contact">
+  <div class="container">
+    <span class="path">/contact</span>
+    <h2>Send a request</h2>
+    <div class="contact-wrap">
+      <form class="contact-form" id="contactForm">
+        <div class="field">
+          <label for="name">name</label>
+          <input type="text" id="name" name="name" placeholder="Your name" required>
+        </div>
+        <div class="field">
+          <label for="email">email</label>
+          <input type="email" id="email" name="email" placeholder="you@example.com" required>
+        </div>
+        <div class="field">
+          <label for="message">message</label>
+          <textarea id="message" name="message" placeholder="What are you building?" required></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary" style="cursor:pointer;">Send →</button>
+        <p class="send-note" id="sendNote">This form is a static demo — connect it to a form service or your email before publishing.</p>
+      </form>
+      <div class="contact-direct">
+        <span class="path">direct</span>
+        <ul class="direct-list">
+          <li>github <a href="https://github.com/BolliyevDilshod" target="_blank" rel="noopener">@BolliyevDilshod</a></li>
+          <li>location <span>Tashkent, UZ</span></li>
+          <li>email <a href="mailto:you@example.com">you@example.com</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <p>$ curl -s api.dilshod.dev/contact — © 2026 Dilshod Bolliyev</p>
+</footer>
+
+<script>
+  // mobile nav
+  const navToggle = document.getElementById('navToggle');
+  const mainNav = document.getElementById('mainNav');
+  navToggle.addEventListener('click', () => mainNav.classList.toggle('open'));
+  mainNav.querySelectorAll('a').forEach(a => a.addEventListener('click', () => mainNav.classList.remove('open')));
+
+  // scroll reveal
+  const revealEls = document.querySelectorAll('[data-reveal]');
+  if('IntersectionObserver' in window){
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(e => { if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } });
+    }, { threshold: 0.15 });
+    revealEls.forEach(el => io.observe(el));
+  } else {
+    revealEls.forEach(el => el.classList.add('in'));
+  }
+
+  // terminal typing sequence
+  const termBody = document.getElementById('termBody');
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  const lines = [
+    { text: '$ http POST /api/auth/login/ username=dilshod', cls: 'req' },
+    { text: 'HTTP/1.1 200 OK', cls: 'status' },
+    { text: '{ "access": "eyJhbGciOi...", "role": "BACKEND_DEV" }', cls: 'str' },
+    { text: '', cls: '' },
+    { text: '$ celery -A core worker -l info', cls: 'req' },
+    { text: '[tasks]  . notifications.send_telegram', cls: 'key' },
+    { text: '[tasks]  . discounts.recompute_rfm_scores', cls: 'key' },
+    { text: 'ready.', cls: 'status' },
+  ];
+
+  function renderStatic(){
+    termBody.innerHTML = lines.map(l => `<span class="${l.cls}">${l.text}</span>`).join('\n');
+  }
+
+  function typeSequence(){
+    let out = [];
+    let li = 0;
+    function typeLine(){
+      if(li >= lines.length){
+        termBody.innerHTML = out.map(l => `<span class="${l.cls}">${l.text}</span>`).join('\n') + '<span class="cursor"></span>';
+        return;
+      }
+      const line = lines[li];
+      let ci = 0;
+      const interval = setInterval(() => {
+        ci++;
+        const current = out.concat([{ text: line.text.slice(0, ci), cls: line.cls }]);
+        termBody.innerHTML = current.map(l => `<span class="${l.cls}">${l.text}</span>`).join('\n') + '<span class="cursor"></span>';
+        if(ci >= line.text.length){
+          clearInterval(interval);
+          out.push(line);
+          li++;
+          setTimeout(typeLine, line.text ? 220 : 60);
+        }
+      }, line.text.startsWith('$') ? 32 : 12);
+    }
+    typeLine();
+  }
+
+  if(reduceMotion){ renderStatic(); } else { typeSequence(); }
+
+  // demo form (no backend wired up)
+  document.getElementById('contactForm').addEventListener('submit', function(e){
+    e.preventDefault();
+    document.getElementById('sendNote').textContent = 'Saved locally as a demo — wire this up to your email or a form service.';
+  });
+</script>
+
+</body>
+</html>
