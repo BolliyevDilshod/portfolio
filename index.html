@@ -77,6 +77,25 @@
   nav a:hover, nav a:focus-visible{ color: var(--accent); outline: none; }
   .nav-toggle{ display:none; background:none; border:none; color:var(--text); font-size:20px; cursor:pointer; }
 
+  .lang-switch{ display:flex; gap: 4px; margin-left: 18px; }
+  .lang-switch button{
+    font-family: var(--mono);
+    font-size: 11.5px;
+    padding: 4px 8px;
+    background: transparent;
+    border: 1px solid var(--border);
+    border-radius: 5px;
+    color: var(--muted);
+    cursor: pointer;
+    transition: color .15s ease, border-color .15s ease;
+  }
+  .lang-switch button:hover{ color: var(--text); border-color: var(--accent-dim); }
+  .lang-switch button.active{ color: var(--accent); border-color: var(--accent); }
+
+  @media (max-width: 640px){
+    .lang-switch{ margin-left: auto; margin-right: 10px; }
+  }
+
   @media (max-width: 640px){
     nav{
       position:absolute;
@@ -385,6 +404,11 @@
 <div class="topbar">
   <div class="topbar-inner">
     <div class="logo">dilshod<span>.dev</span></div>
+    <div class="lang-switch" id="langSwitch">
+      <button data-lang="uz">UZ</button>
+      <button data-lang="ru">RU</button>
+      <button data-lang="en" class="active">EN</button>
+    </div>
     <button class="nav-toggle" id="navToggle" aria-label="Toggle menu">☰</button>
     <nav id="mainNav">
       <a href="#about">/about</a>
@@ -397,12 +421,11 @@
 </div>
 
 <header class="hero container">
-  <div class="eyebrow"><span class="dot"></span>200 OK · open to new roles</div>
-  <h1>Bolliyev Dilshod<br><span class="accent">Python Backend Developer</span></h1>
-  <p class="lede">10 years building APIs that stay up. Django, DRF, FastAPI, WebSocket, Celery — based in Tashkent, working with teams anywhere.</p>
+  <h1>Bolliyev Dilshod<br><span class="accent" data-i18n="hero.role">Python Backend Developer</span></h1>
+  <p class="lede" data-i18n="hero.lede">10 years building APIs that stay up. Django, DRF, FastAPI, WebSocket, Celery — based in Tashkent, working with teams anywhere.</p>
   <div class="hero-actions">
-    <a class="btn btn-primary" href="#projects">View projects</a>
-    <a class="btn btn-ghost" href="#contact">Get in touch</a>
+    <a class="btn btn-primary" href="#projects" data-i18n="hero.btnProjects">View projects</a>
+    <a class="btn btn-ghost" href="#contact" data-i18n="hero.btnContact">Get in touch</a>
     <a class="btn btn-ghost" href="https://github.com/BolliyevDilshod" target="_blank" rel="noopener">GitHub ↗</a>
   </div>
 
@@ -418,8 +441,8 @@
 <section id="about">
   <div class="container">
     <span class="path">/about</span>
-    <h2>Who's handling the request</h2>
-    <p class="about-text">
+    <h2 data-i18n="about.h2">Who's handling the request</h2>
+    <p class="about-text" data-i18n="about.text">
       I'm a backend-focused Python developer with <strong>~10 years of experience</strong>, based in Tashkent, Uzbekistan.
       Most of my work lives in <strong>Django / DRF</strong> and <strong>FastAPI</strong> — auth, background jobs, real-time
       features over WebSocket, and integrations that actually get used, like Telegram bots wired into CRMs and payment flows.
@@ -432,31 +455,31 @@
 <section id="stack">
   <div class="container">
     <span class="path">/stack</span>
-    <h2>Response headers</h2>
+    <h2 data-i18n="stack.h2">Response headers</h2>
 
     <div class="stack-group">
-      <h3>Core</h3>
+      <h3 data-i18n="stack.core">Core</h3>
       <div class="tags">
         <span class="tag">Python</span><span class="tag">Django</span><span class="tag">DRF</span>
         <span class="tag">FastAPI</span><span class="tag">WebSocket</span><span class="tag">JWT</span>
       </div>
     </div>
     <div class="stack-group">
-      <h3>Data &amp; queues</h3>
+      <h3 data-i18n="stack.data">Data &amp; queues</h3>
       <div class="tags">
         <span class="tag">PostgreSQL</span><span class="tag">Redis</span><span class="tag">Celery</span>
         <span class="tag">pandas</span><span class="tag">numpy</span>
       </div>
     </div>
     <div class="stack-group">
-      <h3>Infra &amp; tooling</h3>
+      <h3 data-i18n="stack.infra">Infra &amp; tooling</h3>
       <div class="tags">
         <span class="tag">Docker</span><span class="tag">Git</span><span class="tag">Nginx</span>
         <span class="tag">Jazzmin</span><span class="tag">python-decouple</span>
       </div>
     </div>
     <div class="stack-group">
-      <h3>Integrations</h3>
+      <h3 data-i18n="stack.integrations">Integrations</h3>
       <div class="tags">
         <span class="tag">Telegram Bot API</span><span class="tag">face_recognition / dlib</span>
         <span class="tag">OpenCV</span><span class="tag">QR codes</span>
@@ -468,23 +491,23 @@
 <section id="projects">
   <div class="container">
     <span class="path">/projects</span>
-    <h2>Endpoints worth calling</h2>
+    <h2 data-i18n="projects.h2">Endpoints worth calling</h2>
 
     <div class="project" data-reveal>
       <div class="project-head">
         <span class="method method-get">GET</span>
         <span class="project-path">/projects/ai-market</span>
-        <span class="status-badge">status: in progress</span>
+        <span class="status-badge" data-i18n="status.inProgress">status: in progress</span>
       </div>
       <h3>AI Market</h3>
-      <p>Multi-tenant retail platform with face-recognition-based customer check-in, an RFM-style weighted
+      <p data-i18n="proj.aimarket.desc">Multi-tenant retail platform with face-recognition-based customer check-in, an RFM-style weighted
          discount engine, QR code generation, and a Telegram bot that handles self-registration end to end.</p>
       <div class="tags">
         <span class="tag">Django</span><span class="tag">dlib</span><span class="tag">OpenCV</span>
         <span class="tag">pandas</span><span class="tag">python-telegram-bot</span>
       </div>
       <div class="project-links">
-        <a href="https://github.com/BolliyevDilshod" target="_blank" rel="noopener">Source ↗</a>
+        <a href="https://github.com/BolliyevDilshod" target="_blank" rel="noopener" data-i18n="link.source">Source ↗</a>
       </div>
     </div>
 
@@ -492,16 +515,18 @@
       <div class="project-head">
         <span class="method method-get">GET</span>
         <span class="project-path">/projects/mydocai</span>
-        <span class="status-badge">status: in progress</span>
+        <span class="status-badge" data-i18n="status.inProgress">status: in progress</span>
       </div>
       <h3>MyDocAI</h3>
-      <p>Telemedicine REST API built from scratch across 12 Django apps — patients, doctors, pharmacy,
-         consultations, prescriptions, payments, chat, and analytics — with split settings and a Jazzmin admin.</p>
+      <p data-i18n="proj.mydocai.desc">Telemedicine REST API built from scratch across 12 Django apps — patients, doctors, pharmacy,
+         consultations, prescriptions, payments, chat, and analytics — with FastAPI-powered services, real-time
+         WebSocket messaging, and an AI Telegram bot, on split settings and a Jazzmin admin.</p>
       <div class="tags">
-        <span class="tag">Django REST Framework</span><span class="tag">JWT</span><span class="tag">PostgreSQL</span>
+        <span class="tag">Django REST Framework</span><span class="tag">FastAPI</span><span class="tag">WebSocket</span>
+        <span class="tag">JWT</span><span class="tag">PostgreSQL</span><span class="tag">AI Telegram bot</span>
       </div>
       <div class="project-links">
-        <a href="https://github.com/BolliyevDilshod/mydocai" target="_blank" rel="noopener">Source ↗</a>
+        <a href="https://github.com/BolliyevDilshod/mydocai" target="_blank" rel="noopener" data-i18n="link.source">Source ↗</a>
       </div>
     </div>
 
@@ -509,14 +534,14 @@
       <div class="project-head">
         <span class="method method-post">POST</span>
         <span class="project-path">/projects/internet-speed-checker</span>
-        <span class="status-badge">status: shipped</span>
+        <span class="status-badge" data-i18n="status.shipped">status: shipped</span>
       </div>
       <h3>Internet Speed Checker</h3>
-      <p>A compact Python tool that measures connection speed — built as a technical test task and shipped
+      <p data-i18n="proj.speed.desc">A compact Python tool that measures connection speed — built as a technical test task and shipped
          end to end, including first-time setup of Git authentication via personal access tokens.</p>
       <div class="tags"><span class="tag">Python</span></div>
       <div class="project-links">
-        <a href="https://github.com/BolliyevDilshod/internet_speed" target="_blank" rel="noopener">Source ↗</a>
+        <a href="https://github.com/BolliyevDilshod/internet_speed" target="_blank" rel="noopener" data-i18n="link.source">Source ↗</a>
       </div>
     </div>
 
@@ -524,10 +549,10 @@
       <div class="project-head">
         <span class="method method-get">GET</span>
         <span class="project-path">/projects/ada-taxi</span>
-        <span class="status-badge">status: in progress</span>
+        <span class="status-badge" data-i18n="status.inProgress">status: in progress</span>
       </div>
       <h3>ADA Taxi</h3>
-      <p>Intercity taxi service connecting passengers between cities, with real-time ride tracking over
+      <p data-i18n="proj.ada.desc">Intercity taxi service connecting passengers between cities, with real-time ride tracking over
          WebSocket and background job processing for matching and notifications.</p>
       <div class="tags">
         <span class="tag">Django</span><span class="tag">DRF</span><span class="tag">WebSocket</span>
@@ -539,10 +564,10 @@
       <div class="project-head">
         <span class="method method-get">GET</span>
         <span class="project-path">/projects/buyukyol-logistika</span>
-        <span class="status-badge">status: in progress</span>
+        <span class="status-badge" data-i18n="status.inProgress">status: in progress</span>
       </div>
       <h3>Buyukyol Logistika</h3>
-      <p>Cargo and freight-matching platform for intercity and Central Asia routes — connecting shippers
+      <p data-i18n="proj.buyukyol.desc">Cargo and freight-matching platform for intercity and Central Asia routes — connecting shippers
          who need cargo moved with carriers who have space, in real time.</p>
       <div class="tags">
         <span class="tag">Django</span><span class="tag">DRF</span><span class="tag">WebSocket</span>
@@ -554,17 +579,17 @@
       <div class="project-head">
         <span class="method method-get">GET</span>
         <span class="project-path">/projects/medos</span>
-        <span class="status-badge">status: live</span>
+        <span class="status-badge" data-i18n="status.live">status: live</span>
       </div>
       <h3>Medos.uz</h3>
-      <p>A directory site for finding clinics, doctors, and pharmacies — with price lookups and online
+      <p data-i18n="proj.medos.desc">A directory site for finding clinics, doctors, and pharmacies — with price lookups and online
          appointment booking.</p>
       <div class="tags">
         <span class="tag">Django</span><span class="tag">DRF</span><span class="tag">Celery</span>
         <span class="tag">Redis</span><span class="tag">PostgreSQL</span>
       </div>
       <div class="project-links">
-        <a href="https://medos.uz" target="_blank" rel="noopener">Visit ↗</a>
+        <a href="https://medos.uz" target="_blank" rel="noopener" data-i18n="link.visit">Visit ↗</a>
       </div>
     </div>
 
@@ -572,16 +597,16 @@
       <div class="project-head">
         <span class="method method-get">GET</span>
         <span class="project-path">/projects/yangi-tashmi</span>
-        <span class="status-badge">status: live</span>
+        <span class="status-badge" data-i18n="status.live">status: live</span>
       </div>
       <h3>Yangi-tashmi.uz</h3>
-      <p>A full website built with a Django backend and a hand-crafted HTML/CSS/JS frontend.</p>
+      <p data-i18n="proj.yangitashmi.desc">A full website built with a Django backend and a hand-crafted HTML/CSS/JS frontend.</p>
       <div class="tags">
         <span class="tag">Django</span><span class="tag">Python</span><span class="tag">PostgreSQL</span>
         <span class="tag">HTML/CSS/JS</span>
       </div>
       <div class="project-links">
-        <a href="https://yangi-tashmi.uz" target="_blank" rel="noopener">Visit ↗</a>
+        <a href="https://yangi-tashmi.uz" target="_blank" rel="noopener" data-i18n="link.visit">Visit ↗</a>
       </div>
     </div>
   </div>
@@ -590,23 +615,23 @@
 <section id="experience">
   <div class="container">
     <span class="path">/experience</span>
-    <h2>Request history</h2>
+    <h2 data-i18n="experience.h2">Request history</h2>
     <div class="timeline">
       <div class="t-item">
-        <div class="t-meta">recent</div>
-        <h4>Independent projects — AI Market &amp; MyDocAI</h4>
-        <p>Designed and built both platforms solo, from data models to deployment prep, while job searching.</p>
+        <div class="t-meta" data-i18n="exp.recent">recent</div>
+        <h4 data-i18n="exp.item1.title">Independent projects — AI Market &amp; MyDocAI</h4>
+        <p data-i18n="exp.item1.desc">Designed and built both platforms solo, from data models to deployment prep, while job searching.</p>
       </div>
       <div class="t-item">
-        <div class="t-meta">earlier</div>
-        <h4>CRM &amp; Telegram integrations (m_crm / ombor_pro)</h4>
-        <p>Multi-role dashboards, payment-confirmation notifications, debt calculation logic, and admin-only
+        <div class="t-meta" data-i18n="exp.earlier">earlier</div>
+        <h4 data-i18n="exp.item2.title">CRM &amp; Telegram integrations (m_crm / ombor_pro)</h4>
+        <p data-i18n="exp.item2.desc">Multi-role dashboards, payment-confirmation notifications, debt calculation logic, and admin-only
            logging channels for internal retail/distribution tools.</p>
       </div>
       <div class="t-item">
-        <div class="t-meta">background</div>
-        <h4>~10 years in Python backend development</h4>
-        <p>Django, DRF and FastAPI services with a recurring focus on real-time features and Telegram-based
+        <div class="t-meta" data-i18n="exp.background">background</div>
+        <h4 data-i18n="exp.item3.title">~10 years in Python backend development</h4>
+        <p data-i18n="exp.item3.desc">Django, DRF and FastAPI services with a recurring focus on real-time features and Telegram-based
            notification systems.</p>
       </div>
     </div>
@@ -616,23 +641,23 @@
 <section id="contact">
   <div class="container">
     <span class="path">/contact</span>
-    <h2>Send a request</h2>
+    <h2 data-i18n="contact.h2">Send a request</h2>
     <div class="contact-wrap">
       <form class="contact-form" id="contactForm">
         <div class="field">
           <label for="name">name</label>
-          <input type="text" id="name" name="name" placeholder="Your name" required>
+          <input type="text" id="name" name="name" data-i18n-placeholder="contact.namePlaceholder" placeholder="Your name" required>
         </div>
         <div class="field">
           <label for="email">email</label>
-          <input type="email" id="email" name="email" placeholder="you@example.com" required>
+          <input type="email" id="email" name="email" data-i18n-placeholder="contact.emailPlaceholder" placeholder="you@example.com" required>
         </div>
         <div class="field">
           <label for="message">message</label>
-          <textarea id="message" name="message" placeholder="What are you building?" required></textarea>
+          <textarea id="message" name="message" data-i18n-placeholder="contact.messagePlaceholder" placeholder="What are you building?" required></textarea>
         </div>
-        <button type="submit" class="btn btn-primary" style="cursor:pointer;">Send →</button>
-        <p class="send-note" id="sendNote">This form is a static demo — connect it to a form service or your email before publishing.</p>
+        <button type="submit" class="btn btn-primary" style="cursor:pointer;" data-i18n="contact.sendBtn">Send →</button>
+        <p class="send-note" id="sendNote" data-i18n="contact.sendNote">This form is a static demo — connect it to a form service or your email before publishing.</p>
       </form>
       <div class="contact-direct">
         <span class="path">direct</span>
@@ -716,9 +741,163 @@
   if(reduceMotion){ renderStatic(); } else { typeSequence(); }
 
   // demo form (no backend wired up)
+  let currentLang = 'en';
   document.getElementById('contactForm').addEventListener('submit', function(e){
     e.preventDefault();
-    document.getElementById('sendNote').textContent = 'Saved locally as a demo — wire this up to your email or a form service.';
+    document.getElementById('sendNote').textContent = i18n[currentLang]['contact.sendNoteAfter'];
+  });
+
+  // -------- i18n --------
+  const i18n = {
+    en: {
+      'hero.role': 'Python Backend Developer',
+      'hero.lede': '10 years building APIs that stay up. Django, DRF, FastAPI, WebSocket, Celery — based in Tashkent, working with teams anywhere.',
+      'hero.btnProjects': 'View projects',
+      'hero.btnContact': 'Get in touch',
+      'about.h2': "Who's handling the request",
+      'about.text': "I'm a backend-focused Python developer with <strong>~10 years of experience</strong>, based in Tashkent, Uzbekistan. Most of my work lives in <strong>Django / DRF</strong> and <strong>FastAPI</strong> — auth, background jobs, real-time features over WebSocket, and integrations that actually get used, like Telegram bots wired into CRMs and payment flows. Lately I've been building two things end-to-end on my own: a multi-tenant retail platform with face recognition, and a telemedicine API — both from schema to deployment.",
+      'stack.h2': 'Response headers',
+      'stack.core': 'Core',
+      'stack.data': 'Data &amp; queues',
+      'stack.infra': 'Infra &amp; tooling',
+      'stack.integrations': 'Integrations',
+      'projects.h2': 'Endpoints worth calling',
+      'status.inProgress': 'status: in progress',
+      'status.live': 'status: live',
+      'status.shipped': 'status: shipped',
+      'proj.aimarket.desc': 'Multi-tenant retail platform with face-recognition-based customer check-in, an RFM-style weighted discount engine, QR code generation, and a Telegram bot that handles self-registration end to end.',
+      'proj.mydocai.desc': 'Telemedicine REST API built from scratch across 12 Django apps — patients, doctors, pharmacy, consultations, prescriptions, payments, chat, and analytics — with FastAPI-powered services, real-time WebSocket messaging, and an AI Telegram bot, on split settings and a Jazzmin admin.',
+      'proj.speed.desc': 'A compact Python tool that measures connection speed — built as a technical test task and shipped end to end, including first-time setup of Git authentication via personal access tokens.',
+      'proj.ada.desc': 'Intercity taxi service connecting passengers between cities, with real-time ride tracking over WebSocket and background job processing for matching and notifications.',
+      'proj.buyukyol.desc': 'Cargo and freight-matching platform for intercity and Central Asia routes — connecting shippers who need cargo moved with carriers who have space, in real time.',
+      'proj.medos.desc': 'A directory site for finding clinics, doctors, and pharmacies — with price lookups and online appointment booking.',
+      'proj.yangitashmi.desc': 'A full website built with a Django backend and a hand-crafted HTML/CSS/JS frontend.',
+      'link.source': 'Source ↗',
+      'link.visit': 'Visit ↗',
+      'experience.h2': 'Request history',
+      'exp.recent': 'recent',
+      'exp.earlier': 'earlier',
+      'exp.background': 'background',
+      'exp.item1.title': 'Independent projects — AI Market &amp; MyDocAI',
+      'exp.item1.desc': 'Designed and built both platforms solo, from data models to deployment prep, while job searching.',
+      'exp.item2.title': 'CRM &amp; Telegram integrations (m_crm / ombor_pro)',
+      'exp.item2.desc': 'Multi-role dashboards, payment-confirmation notifications, debt calculation logic, and admin-only logging channels for internal retail/distribution tools.',
+      'exp.item3.title': '~10 years in Python backend development',
+      'exp.item3.desc': 'Django, DRF and FastAPI services with a recurring focus on real-time features and Telegram-based notification systems.',
+      'contact.h2': 'Send a request',
+      'contact.namePlaceholder': 'Your name',
+      'contact.emailPlaceholder': 'you@example.com',
+      'contact.messagePlaceholder': 'What are you building?',
+      'contact.sendBtn': 'Send →',
+      'contact.sendNote': 'This form is a static demo — connect it to a form service or your email before publishing.',
+      'contact.sendNoteAfter': 'Saved locally as a demo — wire this up to your email or a form service.'
+    },
+    uz: {
+      'hero.role': 'Python Backend Dasturchi',
+      'hero.lede': "10 yillik tajriba — ishlab turadigan API'lar yarataman. Django, DRF, FastAPI, WebSocket, Celery — Toshkentda yashayman, jamoalar bilan dunyoning istalgan joyida ishlayman.",
+      'hero.btnProjects': "Loyihalarni ko'rish",
+      'hero.btnContact': "Bog'lanish",
+      'about.h2': "So'rovni kim qabul qilyapti",
+      'about.text': "Men ~10 yillik tajribaga ega <strong>backend'ga ixtisoslashgan Python dasturchi</strong>man, Toshkent, O'zbekistonda joylashganman. Ishlarimning aksariyati <strong>Django / DRF</strong> va <strong>FastAPI</strong>da — autentifikatsiya, fon vazifalari, WebSocket orqali real vaqt funksiyalari va CRM hamda to'lov tizimlariga ulangan Telegram botlar kabi haqiqatan ham foydalaniladigan integratsiyalar. Hozirda ikkita loyihani yakka o'zim boshdan-oyoq qurayapman: yuz tanish funksiyali multi-tenant chakana savdo platformasi va telemeditsina API'si — sxemadan tortib deploygacha.",
+      'stack.h2': 'Javob sarlavhalari',
+      'stack.core': 'Asosiy',
+      'stack.data': "Ma'lumotlar va navbatlar",
+      'stack.infra': 'Infratuzilma va vositalar',
+      'stack.integrations': 'Integratsiyalar',
+      'projects.h2': 'Chaqirishga arzigulik endpointlar',
+      'status.inProgress': 'holat: jarayonda',
+      'status.live': 'holat: faol',
+      'status.shipped': 'holat: tugallangan',
+      'proj.aimarket.desc': "Yuz tanish orqali mijozlarni ro'yxatga olish, RFM uslubidagi vaznli chegirma tizimi, QR-kod generatsiyasi va mijozlarning o'zini o'zi ro'yxatdan o'tkazishini boshqaradigan Telegram bot bilan multi-tenant chakana savdo platformasi.",
+      'proj.mydocai.desc': "12 ta Django ilovasi asosida noldan qurilgan telemeditsina REST API'si — bemorlar, shifokorlar, dorixona, konsultatsiyalar, retseptlar, to'lovlar, chat va analitika — FastAPI orqali qo'shimcha xizmatlar, WebSocket real vaqt xabarlashuvi va AI Telegram bot bilan birga, split settings va Jazzmin admin panelida.",
+      'proj.speed.desc': "Ulanish tezligini o'lchaydigan ixcham Python vositasi — texnik test topshiriq sifatida yaratilib, Git autentifikatsiyasini personal access token orqali birinchi marta sozlash bilan birga boshidan oxirigacha yetkazib berilgan.",
+      'proj.ada.desc': "Shaharlar aro yo'lovchilarni bog'laydigan taksi xizmati, WebSocket orqali real vaqtda safar kuzatuvi va moslashtirish hamda xabarnomalar uchun fon vazifalari bilan.",
+      'proj.buyukyol.desc': "Shaharlar aro va Markaziy Osiyo yo'nalishlari uchun yuk va tashuvchilarni moslashtiruvchi platforma — yuk yetkazish kerak bo'lgan yuboruvchilarni bo'sh joyi bor tashuvchilar bilan real vaqtda bog'laydi.",
+      'proj.medos.desc': "Klinikalar, shifokorlar va dorixonalarni topish uchun katalog sayti — narxlarni bilish va onlayn qabulga yozilish imkoniyati bilan.",
+      'proj.yangitashmi.desc': "Django backend va qo'lda yozilgan HTML/CSS/JS frontend asosida qurilgan to'liq sayt.",
+      'link.source': 'Manba ↗',
+      'link.visit': "Saytga o'tish ↗",
+      'experience.h2': "So'rovlar tarixi",
+      'exp.recent': "so'nggi",
+      'exp.earlier': 'avvalroq',
+      'exp.background': 'umumiy tajriba',
+      'exp.item1.title': 'Mustaqil loyihalar — AI Market va MyDocAI',
+      'exp.item1.desc': "Ish qidirish bilan bir vaqtda, ma'lumotlar modelidan tortib deploy tayyorgarligigacha ikkala platformani yakka o'zim loyihalashtirdim va qurdim.",
+      'exp.item2.title': 'CRM va Telegram integratsiyalari (m_crm / ombor_pro)',
+      'exp.item2.desc': "Ichki chakana savdo/distribyutsiya vositalari uchun ko'p rolli boshqaruv panellari, to'lov tasdiqlash xabarnomalari, qarz hisoblash mantiqi va faqat admin uchun log kanallari.",
+      'exp.item3.title': "Python backend'da ~10 yillik tajriba",
+      'exp.item3.desc': "Real vaqt funksiyalari va Telegram asosidagi xabarnoma tizimlariga doimiy e'tibor bilan Django, DRF va FastAPI xizmatlari.",
+      'contact.h2': "So'rov yuborish",
+      'contact.namePlaceholder': 'Ismingiz',
+      'contact.emailPlaceholder': 'siz@example.com',
+      'contact.messagePlaceholder': 'Nima quryapsiz?',
+      'contact.sendBtn': 'Yuborish →',
+      'contact.sendNote': "Bu forma statik demo — nashr qilishdan oldin uni email yoki forma xizmatiga ulang.",
+      'contact.sendNoteAfter': "Demo tariqasida lokal saqlandi — buni email yoki forma xizmatiga ulang."
+    },
+    ru: {
+      'hero.role': 'Python Backend-разработчик',
+      'hero.lede': 'Более 10 лет опыта — создаю API, которые не падают. Django, DRF, FastAPI, WebSocket, Celery — живу в Ташкенте, работаю с командами по всему миру.',
+      'hero.btnProjects': 'Смотреть проекты',
+      'hero.btnContact': 'Связаться',
+      'about.h2': 'Кто обрабатывает запрос',
+      'about.text': 'Я <strong>Python-разработчик с фокусом на backend</strong>, около <strong>10 лет опыта</strong>, живу в Ташкенте, Узбекистан. Большая часть моей работы — <strong>Django / DRF</strong> и <strong>FastAPI</strong>: аутентификация, фоновые задачи, real-time функции через WebSocket и интеграции, которыми реально пользуются — например, Telegram-боты, подключённые к CRM и платёжным потокам. Сейчас в одиночку строю два проекта от начала до конца: мультитенантную розничную платформу с распознаванием лиц и телемедицинский API — от схемы данных до деплоя.',
+      'stack.h2': 'Заголовки ответа',
+      'stack.core': 'Основное',
+      'stack.data': 'Данные и очереди',
+      'stack.infra': 'Инфраструктура и инструменты',
+      'stack.integrations': 'Интеграции',
+      'projects.h2': 'Эндпоинты, которые стоит вызвать',
+      'status.inProgress': 'статус: в разработке',
+      'status.live': 'статус: работает',
+      'status.shipped': 'статус: сдано',
+      'proj.aimarket.desc': 'Мультитенантная розничная платформа с чек-ином клиентов по распознаванию лиц, движком скидок в стиле RFM, генерацией QR-кодов и Telegram-ботом, который полностью обрабатывает самостоятельную регистрацию клиентов.',
+      'proj.mydocai.desc': 'Телемедицинский REST API, построенный с нуля на 12 приложениях Django — пациенты, врачи, аптека, консультации, рецепты, платежи, чат и аналитика — с дополнительными сервисами на FastAPI, real-time сообщениями через WebSocket и AI Telegram-ботом, при раздельных настройках и админке на Jazzmin.',
+      'proj.speed.desc': 'Компактный Python-инструмент для измерения скорости соединения — сделан как техническое тестовое задание и доведён до конца, включая первую настройку авторизации Git через personal access token.',
+      'proj.ada.desc': 'Междугороднее такси, соединяющее пассажиров между городами, с отслеживанием поездки в реальном времени через WebSocket и фоновой обработкой для подбора и уведомлений.',
+      'proj.buyukyol.desc': 'Платформа для подбора груза и перевозчиков для междугородних маршрутов и направлений по Центральной Азии — соединяет отправителей груза с перевозчиками, у которых есть свободное место, в реальном времени.',
+      'proj.medos.desc': 'Сайт-каталог для поиска клиник, врачей и аптек — с проверкой цен и онлайн-записью на приём.',
+      'proj.yangitashmi.desc': 'Полноценный сайт на Django-бэкенде с фронтендом на HTML/CSS/JS, написанным вручную.',
+      'link.source': 'Исходный код ↗',
+      'link.visit': 'Перейти на сайт ↗',
+      'experience.h2': 'История запросов',
+      'exp.recent': 'недавно',
+      'exp.earlier': 'ранее',
+      'exp.background': 'опыт',
+      'exp.item1.title': 'Личные проекты — AI Market и MyDocAI',
+      'exp.item1.desc': 'Спроектировал и построил обе платформы самостоятельно, от моделей данных до подготовки к деплою, параллельно с поиском работы.',
+      'exp.item2.title': 'CRM и Telegram-интеграции (m_crm / ombor_pro)',
+      'exp.item2.desc': 'Многоролевые панели, уведомления о подтверждении оплаты, логика расчёта долга и закрытые каналы логирования только для админов — для внутренних инструментов розницы и дистрибуции.',
+      'exp.item3.title': '~10 лет в Python backend-разработке',
+      'exp.item3.desc': 'Сервисы на Django, DRF и FastAPI с постоянным фокусом на real-time функции и системы уведомлений на базе Telegram.',
+      'contact.h2': 'Отправить запрос',
+      'contact.namePlaceholder': 'Ваше имя',
+      'contact.emailPlaceholder': 'you@example.com',
+      'contact.messagePlaceholder': 'Что вы создаёте?',
+      'contact.sendBtn': 'Отправить →',
+      'contact.sendNote': 'Эта форма — статичная демонстрация: подключите её к email или сервису форм перед публикацией.',
+      'contact.sendNoteAfter': 'Сохранено локально в качестве демо — подключите это к email или сервису форм.'
+    }
+  };
+
+  function applyLang(lang){
+    currentLang = lang;
+    document.documentElement.lang = lang;
+    document.querySelectorAll('[data-i18n]').forEach(el => {
+      const key = el.getAttribute('data-i18n');
+      if(i18n[lang][key] !== undefined) el.innerHTML = i18n[lang][key];
+    });
+    document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
+      const key = el.getAttribute('data-i18n-placeholder');
+      if(i18n[lang][key] !== undefined) el.setAttribute('placeholder', i18n[lang][key]);
+    });
+    document.querySelectorAll('#langSwitch button').forEach(b => {
+      b.classList.toggle('active', b.getAttribute('data-lang') === lang);
+    });
+  }
+
+  document.querySelectorAll('#langSwitch button').forEach(btn => {
+    btn.addEventListener('click', () => applyLang(btn.getAttribute('data-lang')));
   });
 </script>
 
